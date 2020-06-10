@@ -1,0 +1,1 @@
+tr ' ' '\n' < input | sort -u | sed 's/[A-Za-z]*//g'  |  awk '{ printf("%c",$0); }'
