@@ -1,9 +1,20 @@
 #!/bin/bash
 
-#this script receives file path as argument, please use sh decodeme.sh $inputfile
+#replace space with new lines and sort by letter
+content=$(tr ' ' '\n' <  $1  | sort -u )
+sentence=""
 
-#replace spaces with new lines, sort -uniqe to remove duplicates, remove letters with sed, convert ASCII to sentence, assign to a variable
-value=$(tr ' ' '\n' < $1 | sort -u | sed 's/[A-Za-z]*//g'  |  awk '{ printf("%c",$0); }')
+#split using spaces 
+splitted_by_lines=($(echo $content | tr " " "\n"))
 
-#print the sentence
-echo $value
+#go through array and process each word
+for word in "${splitted_by_lines[@]}"
+do 
+	#extract only digit from the word
+	code=$(echo "${word//[^0-9]/}")
+
+	#convert asci code to asci value and convert to sentence
+	sentence+=$(echo "${code}" | printf "\x$(printf %x $code)")
+done
+
+echo $sentence
