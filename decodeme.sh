@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#this script recive file as argument, please use decodeme.sh $file 
+
 #replace space with new lines and sort by letter
 content=$(tr ' ' '\n' <  $1  | sort -u )
 sentence=""
